@@ -1,34 +1,29 @@
-const taskRoutes = require("./routes/taskroutes");
 require("dotenv").config();
 
 const express = require("express");
 const connectDB = require("./config/db");
-const User = require("./models/user");
+
+const taskRoutes = require("./routes/taskroutes");
+const authRoutes = require("./routes/authroutes");
 
 const app = express();
-
 
 connectDB();
 
 app.use(express.json());
 
-
 app.get("/", (req, res) => {
-    res.send("Backend is working!");
+  res.send("Backend is working!");
 });
 
+app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
-app.post("/api/users", async (req, res) => {
-    try {
-        const user = await User.create(req.body);
+const PORT = process.env.PORT || 5000;
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
-        res.status(201).json(user);
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-});
-
-module.exports = app;
+module.exports = app;   
