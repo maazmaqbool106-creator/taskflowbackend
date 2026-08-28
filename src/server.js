@@ -1,12 +1,18 @@
 require("dotenv").config();
 
+
+console.log("JWT SECRET LOADED:", !!process.env.JWT_ACCESS_SECRET);
+console.log("JWT REFRESH SECRET LOADED:", !!process.env.JWT_REFRESH_SECRET);
+
 const express = require("express");
+const app = express();
+
+
 const connectDB = require("./config/db");
 
 const taskRoutes = require("./routes/taskroutes");
 const authRoutes = require("./routes/authroutes");
 
-const app = express();
 
 connectDB();
 
