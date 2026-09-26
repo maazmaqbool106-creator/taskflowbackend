@@ -1,4 +1,5 @@
 require("dotenv").config();
+const cors = require('cors');
 
 
 console.log("JWT SECRET LOADED:", !!process.env.JWT_ACCESS_SECRET);
@@ -7,6 +8,7 @@ console.log("JWT REFRESH SECRET LOADED:", !!process.env.JWT_REFRESH_SECRET);
 const express = require("express");
 const app = express();
 
+app.use(cors());
 
 const connectDB = require("./config/db");
 
